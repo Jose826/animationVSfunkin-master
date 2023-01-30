@@ -1348,6 +1348,30 @@ class PlayState extends MusicBeatState
 		// startCountdown();
 
 		generateSong(SONG.song);
+
+        function playCutscene(name:String, atEndOfSong:Bool = false)
+{
+	inCutscene = true;
+	FlxG.sound.music.stop();
+
+	var video:VideoHandler = new VideoHandler();
+	video.finishCallback = function()
+	{
+		if (atEndOfSong)
+		{
+			if (storyPlaylist.length <= 0)
+				FlxG.switchState(new StoryMenuState());
+			else
+			{
+				SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
+				FlxG.switchState(new PlayState());
+			}
+		}
+		else
+			startCountdown();
+	}
+	video.playVideo(Paths.video(name));
+}
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys()) {
                         var luaToLoad:String = 'custom_notetypes/' + notetype + '.lua';
@@ -1936,29 +1960,7 @@ class PlayState extends MusicBeatState
 			startCountdown();
 		}
 		
-        function playCutscene(name:String, atEndOfSong:Bool = false)
-{
-	inCutscene = true;
-	FlxG.sound.music.stop();
-
-	var video:VideoHandler = new VideoHandler();
-	video.finishCallback = function()
-	{
-		if (atEndOfSong)
-		{
-			if (storyPlaylist.length <= 0)
-				
-			else
-			{
-				SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
-				FlxG.switchState(new PlayState());
-			}
-		}
-		else
-			startCountdown();
-	}
-	video.playVideo(Paths.video(name));
-}
+        
 
 	var startTimer:FlxTimer;
 	var finishTimer:FlxTimer = null;
