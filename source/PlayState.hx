@@ -1645,7 +1645,7 @@ class PlayState extends MusicBeatState
 				case "unwelcomed":
 					
 					var video:VideoHandler = new VideoHandler();					
-					video.playVideo(Paths.video('cutscene_red'));					
+					video.playVideo(Paths.video('cutscene_red.mp4'));					
 					video.finishCallback = function()
 						
 				case "mastermind":
