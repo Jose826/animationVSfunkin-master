@@ -365,6 +365,30 @@ class PlayState extends MusicBeatState
 
 	public static var secret:Bool;
 	
+	function playCutscene(name:String, atEndOfSong:Bool = false)
+        {
+	inCutscene = true;
+	FlxG.sound.music.stop();
+
+	var video:VideoHandler = new VideoHandler();
+	video.finishCallback = function()
+	{
+		if (atEndOfSong)
+		{
+			if (storyPlaylist.length <= 0)
+				FlxG.switchState(new StoryMenuState());
+			else
+			{
+				SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
+				FlxG.switchState(new PlayState());
+			}
+		}
+		else
+			startCountdown();
+	}
+	video.playVideo(Paths.video(name));
+}
+	
 	override public function create()
 	{
 		var save:FlxSave = new FlxSave();
@@ -1640,19 +1664,14 @@ class PlayState extends MusicBeatState
 	
 		if (isStoryMode && !seenCutscene)
 		{
-			switch (Paths.formatToSongPath(curSong))
-			{
-				case "unwelcomed":
-					
-					var video:VideoHandler = new VideoHandler();					
-					video.playVideo(Paths.video('cutscene_red.mp4'));					
-					video.finishCallback = function()
-						
-				
-				default:
-					startCountdown();
-					creditthing();
-			}
+			switch (curSong.toLowerCase())
+                        {
+	case 'unwelcomed':
+		playCutscene('red_cutscene.mp4');
+	
+	default:
+		startCountdown();
+                        }
 			seenCutscene = true;
 		} else {
 			startCountdown();
