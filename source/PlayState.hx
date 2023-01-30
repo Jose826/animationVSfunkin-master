@@ -1670,18 +1670,7 @@ class PlayState extends MusicBeatState
 			{
 				case "unwelcomed":
 					playCutscene('cutscene_red');
-				case "mastermind":
-					startMP4vid('cutscene_blue');
-				case "stickin-to-it":
-					startMP4vid('cutscene_green');
-				case "repeater":
-					startMP4vid('cutscene_yellow');
-				case "rock-blocks":
-					startMP4vid('cutscene_tsc');
-				case 'stick-symphony':
-					startMP4vid('BandCutscene');
-				case 'vengeance':
-					startVideo('makesomenoise_cut');
+				
 				default:
 					startCountdown();
 					creditthing();
@@ -1958,7 +1947,7 @@ class PlayState extends MusicBeatState
 		if (atEndOfSong)
 		{
 			if (storyPlaylist.length <= 0)
-				FlxG.switchState(new StoryMenuState());
+				
 			else
 			{
 				SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
