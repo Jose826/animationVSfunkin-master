@@ -1240,29 +1240,7 @@ class PlayState extends MusicBeatState
 			boyfriend = new Boyfriend(0, 0, SONG.player1);
 		}
 
- function playCutscene(name:String, atEndOfSong:Bool = false)
-{
-	inCutscene = true;
-	FlxG.sound.music.stop();
-
-	var video:VideoHandler = new VideoHandler();
-	video.finishCallback = function()
-	{
-		if (atEndOfSong)
-		{
-			if (storyPlaylist.length <= 0)
-				FlxG.switchState(new StoryMenuState());
-			else
-			{
-				SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
-				FlxG.switchState(new PlayState());
-			}
-		}
-		else
-			startCountdown();
-	}
-	video.playVideo(Paths.video(name));
-}
+ 
 
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
@@ -1691,7 +1669,7 @@ class PlayState extends MusicBeatState
 			switch (Paths.formatToSongPath(curSong))
 			{
 				case "unwelcomed":
-					playCutscene('cuscene_red.mp4');
+					PlayCutscene('cutscene_red');
 				case "mastermind":
 					startMP4vid('cutscene_blue');
 				case "stickin-to-it":
@@ -1712,6 +1690,7 @@ class PlayState extends MusicBeatState
 		} else {
 			startCountdown();
 			creditthing();
+		}
 		RecalculateRating();
 
 		//PRECACHING MISS SOUNDS BECAUSE I THINK THEY CAN LAG PEOPLE AND FUCK THEM UP IDK HOW HAXE WORKS
@@ -1968,7 +1947,29 @@ class PlayState extends MusicBeatState
 			startCountdown();
 		}
 		
-   
+        function playCutscene(name:String, atEndOfSong:Bool = false)
+{
+	inCutscene = true;
+	FlxG.sound.music.stop();
+
+	var video:VideoHandler = new VideoHandler();
+	video.finishCallback = function()
+	{
+		if (atEndOfSong)
+		{
+			if (storyPlaylist.length <= 0)
+				FlxG.switchState(new StoryMenuState());
+			else
+			{
+				SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
+				FlxG.switchState(new PlayState());
+			}
+		}
+		else
+			startCountdown();
+	}
+	video.playVideo(Paths.video(name));
+}
 
 	var startTimer:FlxTimer;
 	var finishTimer:FlxTimer = null;
