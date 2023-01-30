@@ -1648,20 +1648,8 @@ class PlayState extends MusicBeatState
 					video.playVideo(Paths.video('cutscene_red.mp4'));					
 					video.finishCallback = function()
 						
-				/*case "mastermind":
-					LoadingState.loadAndSwitchState(new VideoState('assets/videos/cutscene_blue', new PlayState())); 
-				case "stickin-to-it":
-					LoadingState.loadAndSwitchState(new VideoState('assets/videos/cutscene_green', new PlayState())); 
-				case "repeater":
-					LoadingState.loadAndSwitchState(new VideoState('assets/videos/cutscene_yellow', new PlayState())); 
-				case "rock-blocks":
-					LoadingState.loadAndSwitchState(new VideoState('assets/videos/cutscene_tsc', new PlayState())); 
-				case 'stick-symphony':
-					LoadingState.loadAndSwitchState(new VideoState('assets/videos/BandCutscene', new PlayState())); 
-				case 'vengeance':
-					LoadingState.loadAndSwitchState(new VideoState('assets/videos/makesomenoise_cut', new PlayState())); 
-					
-				default:*/
+				
+				default:
 					startCountdown();
 					creditthing();
 			}
