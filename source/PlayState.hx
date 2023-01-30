@@ -1240,6 +1240,30 @@ class PlayState extends MusicBeatState
 			boyfriend = new Boyfriend(0, 0, SONG.player1);
 		}
 
+ function playCutscene(name:String, atEndOfSong:Bool = false)
+{
+	inCutscene = true;
+	FlxG.sound.music.stop();
+
+	var video:VideoHandler = new VideoHandler();
+	video.finishCallback = function()
+	{
+		if (atEndOfSong)
+		{
+			if (storyPlaylist.length <= 0)
+				FlxG.switchState(new StoryMenuState());
+			else
+			{
+				SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
+				FlxG.switchState(new PlayState());
+			}
+		}
+		else
+			startCountdown();
+	}
+	video.playVideo(Paths.video(name));
+}
+
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
@@ -1664,19 +1688,30 @@ class PlayState extends MusicBeatState
 	
 		if (isStoryMode && !seenCutscene)
 		{
-			switch (curSong.toLowerCase())
-                        {
-	case 'unwelcomed':
-		playCutscene('red_cutscene.mp4');
-	
-	default:
-		startCountdown();
-                        }
+			switch (Paths.formatToSongPath(curSong))
+			{
+				case "unwelcomed":
+					playCutscene('cuscene_red.mp4');
+				case "mastermind":
+					startMP4vid('cutscene_blue');
+				case "stickin-to-it":
+					startMP4vid('cutscene_green');
+				case "repeater":
+					startMP4vid('cutscene_yellow');
+				case "rock-blocks":
+					startMP4vid('cutscene_tsc');
+				case 'stick-symphony':
+					startMP4vid('BandCutscene');
+				case 'vengeance':
+					startVideo('makesomenoise_cut');
+				default:
+					startCountdown();
+					creditthing();
+			}
 			seenCutscene = true;
 		} else {
 			startCountdown();
 			creditthing();
-		}
 		RecalculateRating();
 
 		//PRECACHING MISS SOUNDS BECAUSE I THINK THEY CAN LAG PEOPLE AND FUCK THEM UP IDK HOW HAXE WORKS
