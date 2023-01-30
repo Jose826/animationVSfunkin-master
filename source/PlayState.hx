@@ -77,7 +77,7 @@ import openfl.display.Sprite;
 import openfl.utils.Assets;
 import openfl.system.System;
 import flixel.util.FlxSave;
-
+import hxcodec.VideoHandler;
 #if desktop
 import flash.system.Capabilities;
 #end
