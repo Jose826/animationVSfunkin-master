@@ -10,6 +10,8 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.system.System;
+import sys.io.File;
+import sys.FileSystem;
 
 class Main extends Sprite
 {
@@ -21,6 +23,10 @@ class Main extends Sprite
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 	public static var fpsVar:FPS;
+
+	static final videoFiles:Array<String> = [
+		
+	]; // put here names of all videos without .mp4, example "final"
 
         public static var path:String = System.applicationStorageDirectory;
 
@@ -70,9 +76,16 @@ class Main extends Sprite
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
 
-		#if !debug
-		initialState = TitleState;
-		#end
+		if (!FileSystem.exists(lime.system.System.applicationStorageDirectory + 'assets')) {
+			FileSystem.createDirectory(lime.system.System.applicationStorageDirectory + 'assets');
+		}
+		if (!FileSystem.exists(lime.system.System.applicationStorageDirectory + 'assets/videos')) {
+			FileSystem.createDirectory(lime.system.System.applicationStorageDirectory + 'assets/videos');
+		}
+
+                for (vid in videoFiles) {
+			File.saveBytes(Paths.video(vid), Assets.getBytes('videos:' + Paths._video(vid)));
+		}
 
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
