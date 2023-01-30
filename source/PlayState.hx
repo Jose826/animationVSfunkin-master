@@ -1659,9 +1659,9 @@ class PlayState extends MusicBeatState
 				case 'stick-symphony':
 					LoadingState.loadAndSwitchState(new VideoState('assets/videos/BandCutscene', new PlayState())); 
 				case 'vengeance':
-					LoadingState.loadAndSwitchState(new VideoState('assets/videos/makesomenoise_cut', new PlayState())); */
+					LoadingState.loadAndSwitchState(new VideoState('assets/videos/makesomenoise_cut', new PlayState())); 
 					
-				default:
+				default:*/
 					startCountdown();
 					creditthing();
 			}
