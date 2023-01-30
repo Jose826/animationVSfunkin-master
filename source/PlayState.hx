@@ -1648,7 +1648,7 @@ class PlayState extends MusicBeatState
 					video.playVideo(Paths.video('cutscene_red.mp4'));					
 					video.finishCallback = function()
 						
-				case "mastermind":
+				/*case "mastermind":
 					LoadingState.loadAndSwitchState(new VideoState('assets/videos/cutscene_blue', new PlayState())); 
 				case "stickin-to-it":
 					LoadingState.loadAndSwitchState(new VideoState('assets/videos/cutscene_green', new PlayState())); 
@@ -1659,7 +1659,7 @@ class PlayState extends MusicBeatState
 				case 'stick-symphony':
 					LoadingState.loadAndSwitchState(new VideoState('assets/videos/BandCutscene', new PlayState())); 
 				case 'vengeance':
-					LoadingState.loadAndSwitchState(new VideoState('assets/videos/makesomenoise_cut', new PlayState())); 
+					LoadingState.loadAndSwitchState(new VideoState('assets/videos/makesomenoise_cut', new PlayState())); */
 					
 				default:
 					startCountdown();
